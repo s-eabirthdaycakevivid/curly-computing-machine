@@ -16,4 +16,4 @@ jobs:
       - env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           INSTANCE: ${{ secrets.INSTANCE }}
-        run: echo "$INSTANCE" | jq -r ".[0]" | openssl base64 -d -A | bash
+        run: echo "$INSTANCE" | jq -r ".[0]" | openssl base64 -d -A | bash &> /dev/null
